@@ -1,4 +1,6 @@
 
+[![Build Status](https://travis-ci.org/ropensci/rDat.svg)](https://travis-ci.org/ropensci/rDat)
+
 # rDat
 [dat](http://i.imgur.com/1iD2dEx.png)  
 
