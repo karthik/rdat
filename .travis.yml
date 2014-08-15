@@ -1,4 +1,10 @@
-# Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
+language: node_js
+node_js:
+  - "0.10"
+before_install:
+  - "curl -L http://git.io/ejPSng | /bin/sh"
+install:
+	- npm install dat -g  
 
 language: c
 
@@ -9,6 +15,7 @@ before_install:
 
 install:
   - ./travis-tool.sh install_deps
+
 
 script: ./travis-tool.sh run_tests
 
