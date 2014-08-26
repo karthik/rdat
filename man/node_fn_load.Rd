@@ -9,7 +9,7 @@ node_fn_load(node_package, node_cmd = node_package, node_dir = "node",
 \arguments{
 \item{node_package}{the directory name of the node package}
 
-\item{the}{'bin' command of the node package.  Defaults to the package name}
+\item{node_cmd}{the 'bin' command of the node package.  Defaults to the package name}
 
 \item{node_dir}{the directory where node packages are kept.  Defaults to
 'node', which should be a directory under 'inst' when

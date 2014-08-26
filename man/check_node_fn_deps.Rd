@@ -19,7 +19,7 @@ inside \link{.onAttach}}
 
 \item{ask}{Ask before installing dependencies?}
 
-\item{verbose}{Show verbose installation?  If \text{ask=TRUE}, user decides}
+\item{verbose}{Show verbose installation?  If \code{ask=TRUE}, user decides}
 }
 \description{
 Put this function in \link{.onAttach} to check and install node module
