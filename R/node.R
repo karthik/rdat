@@ -11,17 +11,21 @@
 .node$messages <- character()
 
 #' get the node binary
+#' @noRd
 node <- function() {
   find_node()
   file.path(.node$dir, "node")
 }
 
+#' @noRd
 npm = function() {
   find_node()
   file.path(.node$npm, "npm")
 }
 
+
 # Scan for a copy of node and set the internal cache if it's found.
+#' @noRd
 find_node <- function() {
 
   if (is.null(.node$dir)) {
@@ -85,6 +89,7 @@ find_node <- function() {
 }
 
 # Get an S3 numeric_version for the node utility at the specified path
+#' @noRd
 get_node_version <- function(node_dir) {
   node_path <- file.path(node_dir, "node")
   version_info <- system(paste(shQuote(node_path), "--version"),
@@ -93,6 +98,7 @@ get_node_version <- function(node_dir) {
   numeric_version(version)
 }
 
+#' @noRd
 get_npm_version <- function(npm_dir) {
   node_path <- file.path(node_dir, "npm")
   version_info <- system(paste(shQuote(node_path), "--version"),
@@ -100,6 +106,7 @@ get_npm_version <- function(npm_dir) {
   numeric_version(version)
 }
 
+#' @noRd
 is_windows <- function() {
   identical(.Platform$OS.type, "windows")
 }
@@ -107,7 +114,7 @@ is_windows <- function() {
 #' Create a function to call a wrapped node.js package
 #' 
 #' @param node_package the directory name of the node package
-#' @param the 'bin' command of the node package.  Defaults to the package name
+#' @param node_cmd the 'bin' command of the node package.  Defaults to the package name
 #' @param node_dir the directory where node packages are kept.  Defaults to
 #'                 'node', which should be a directory under 'inst' when
 #'                 creaing your own package.
@@ -164,6 +171,7 @@ node_fn_load = function(node_package, node_cmd = node_package,
   return(fn)
   }
 
+#' @noRd
 node_deps_update = function(nodepackage_path, verbose=FALSE) {
   if(!verbose) {
     npm_out=system3(npm(), args=paste0("install --prefix ", nodepackage_path))
@@ -176,6 +184,7 @@ node_deps_update = function(nodepackage_path, verbose=FALSE) {
   }
 }
 
+#' @noRd
 node_deps_installed = function(nodepackage_path) {
   out = system3(npm(), args=paste0("outdated --prefix ", nodepackage_path))
   out = stri_replace_all_fixed(out$stdout, " > ", ">")
@@ -221,7 +230,7 @@ check_node_installed = function() {
 #'                  as the function can't automatically detect the package
 #'                  inside \link{.onAttach}
 #' @param ask Ask before installing dependencies?
-#' @param verbose Show verbose installation?  If \text{ask=TRUE}, user decides
+#' @param verbose Show verbose installation?  If \code{ask=TRUE}, user decides
 #' @export
 check_node_fn_deps = function(node_package, node_dir = "node", r_package = NULL,
                               ask=TRUE, verbose=FALSE) {
