@@ -3,7 +3,7 @@ Title: Programmatic interface to Dat (https://github.com/maxogden/dat/), a tool
     that makes data syncable and allows for automatic sync and updates of data sets.
 Version: 0.1
 Authors@R: 'Karthik Ram <karthik.ram@gmail.com> [aut, cre]'
-Description: rDat makes it possible to easily collaborat and version your data.
+Description: rDat makes it possible to easily collaborate and version your data.
 Depends:
     R (>= 3.1.0)
 License: CC0
