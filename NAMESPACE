@@ -2,5 +2,6 @@
 
 export(check_node_fn_deps)
 export(check_node_installed)
+export(dat_init)
 export(node_fn_load)
 import(jsonlite)
