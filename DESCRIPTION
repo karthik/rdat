@@ -10,6 +10,7 @@ Depends:
 Imports:
     jsonlite,
     httr,
-    lubridate
+    lubridate,
+    rnodejs
 License: MIT + License
 LazyData: true

@@ -17,12 +17,21 @@ dat_init <- function(path = ".") {
         if (identical(create, "Y")) {
             dir.create(path)
             setwd(path)
+
         }
     }
     if (dir.status) {
         stop("A dat store already exists here")
+		out = dat_init_internal()
     } else {
-        system("dat init")
-    }
+    if(out==0) {message(out$stdout)} else {stop(out$stderr)}
+	}
+
 }
+
+#' @import rnodejs
+dat_init_internal = node_fn("dat", "init")
+
+
+
 # Need to be able to pass name, desc, and publisher 
