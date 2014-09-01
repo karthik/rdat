@@ -11,8 +11,10 @@
 dat_start <- function(path = ".") {
 	browser()
 	setwd(path)
-    system("dat listen")
+  dat_listen()
     invisible()
 } 
 
 dat_start('~/Desktop/foo')
+
+dat_listen = node_fn("dat", "listen")
