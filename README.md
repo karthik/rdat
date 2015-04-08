@@ -95,13 +95,13 @@ Gets a row from the dat with the particular key
 
 #### dataset.add_file
 ```
-add_file(dataset, name, dataframe)
+add_file(dataset, name, filepath)
 ```
 Add a file to the dataset with a given name
 
 #### dataset.get_file
 ```
-get_file(dataset, name, output_file)
+get_file(dataset, name, filepath)
 ```
 Gets the file that's in the dataset with a given name to an output file (how is this defined?)
 
