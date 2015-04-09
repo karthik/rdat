@@ -47,7 +47,7 @@ Gets someone else's dat
 ```
 checkout(dat, hash)
 ```
-Gets the dat at a particular hash. Adds the dataframe to a dat
+Gets the dat at a particular hash.
 
 #### rDat.push
 ```
@@ -61,17 +61,21 @@ pull(dat)
 ```
 Syncs the changes of other peers to the local dat
 
+#### rDat.get_rows
+```
+dataframe = get_rows(dat, dataset_name)
+
 #### rDat.create_dataset
 ```
-dataset = get_dataset(dat, dataset_name)
+dataset = create_dataset(dat, dataset_name)
 ```
-Create a dataset with the given name in the dat
+Create an rDat.dataset with the given name in the dat
 
 #### rDat.get_dataset
 ```
 dataset = get_dataset(dat, dataset_name)
 ```
-Get an rDat.dataset
+Get an rDat.dataset that already exists in the dat
 
 ## rDat.dataset
 
