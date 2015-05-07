@@ -33,79 +33,75 @@ This api is experimental and hasn't been finalized or implemented. Stay tuned fo
 
 #### init
 ```
-dat = rDat.init()
+dat <- rDat.init()
 ```
 Inits a dat in the current working directory
 
-#### rDat.clone
+#### dat_clone
 ```
-dat = rDat.clone('ssh://path/to/dat')
+dat <- rDat.clone('ssh://path/to/dat')
 ```
 Gets someone else's dat
 
-#### rDat.checkout
+#### dat_checkout
 ```
-checkout(dat, hash)
+dat_checkout(dat, hash)
 ```
 Gets the dat at a particular hash.
 
-#### rDat.push
+#### dat_push
 ```
-push(dat)
+dat_push(dat)
 ```
 Pushes the data we've added to dat to peers
 
-#### rDat.pull
+#### dat_pull
 ```
-pull(dat)
+dat_pull(dat)
 ```
 Syncs the changes of other peers to the local dat
 
-#### rDat.get_rows
+#### dat_create_dataset
 ```
-dataframe = get_rows(dat, dataset_name)
+dataset <- create_dataset(dat, dataset_name)
+```
+Create an dat_dataset with the given name in the dat
 
-#### rDat.create_dataset
+#### dat_get_dataset
 ```
-dataset = create_dataset(dat, dataset_name)
+dataset <- get_dataset(dat, dataset_name)
 ```
-Create an rDat.dataset with the given name in the dat
+Get an dat_dataset that already exists in the dat
 
-#### rDat.get_dataset
-```
-dataset = get_dataset(dat, dataset_name)
-```
-Get an rDat.dataset that already exists in the dat
+## Dataset
 
-## rDat.dataset
-
-#### dataset.get_rows
+#### dataset.get
 ```
-dataframe = get_rows(dataset)
+dataframe <- dat_get(dataset)
 ```
 Gets an entire table as a R.dataframe
 
-#### dataset.add_rows
+#### dataset.add
 ```
-add_rows(dataset, dataframe)
+dat_add(dataset, dataframe)
 ```
 Add the dataframe to the dataset. This could create conflicts in the dat, but you don't have to worry about those yet.
 
-#### dataset.get_row
+#### dataset.get
 ```
-row = get_row(dataset, key)
+row <- dat_get(dataset, key)
 ```
 Gets a row from the dat with the particular key
 
 #### dataset.add_file
 ```
-add_file(dataset, name, filepath)
+dat_add_file(dataset, name, filepath)
 ```
 Add a file to the dataset with a given name
 
 #### dataset.get_file
 ```
-get_file(dataset, name, filepath)
+dat_get_file(dataset, name, filepath)
 ```
 Gets the file that's in the dataset with a given name to an output file (how is this defined?)
 
