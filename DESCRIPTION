@@ -1,0 +1,12 @@
+Package: rdat
+Type: Package
+Title: Bindings to the 'dat' Data-Versioning System
+Version: 0.2
+Date: 2015-05-13
+Authors@R: c(person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut", "cre")),
+    person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = "aut"))
+Description: Programmatic interface to Dat (https://github.com/maxogden/dat/),
+    a tool that makes data syncable and allows for automatic sync and updates
+    of data sets.
+License: MIT + License
+Imports: jsonlite
