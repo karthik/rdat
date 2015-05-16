@@ -4,7 +4,7 @@
 \alias{dat}
 \title{Dat repository}
 \usage{
-dat(path = tempdir(), dat = "dat-beta", verbose = TRUE)
+dat(path = tempdir(), dat = "dat-beta", verbose = FALSE)
 }
 \arguments{
 \item{path}{directory of the dat repository}
@@ -17,8 +17,30 @@ dat(path = tempdir(), dat = "dat-beta", verbose = TRUE)
 Create and modify a dat repository.
 }
 \examples{
+# init a temporary repo
 repo <- dat(tempdir())
-repo$import(mtcars)
-repo$export()
+
+# insert some data
+repo$insert(cars[1:20,])
+v1 <- repo$heads()
+
+# insert some more data
+repo$insert(cars[21:25,])
+v2 <- repo$heads()
+
+# get the data
+data1 <- repo$get(v1)
+data2 <- repo$get(v2)
+diff <- repo$diff(v1, v2)
+diff$key
+
+# create fork
+repo$checkout(v1)
+repo$insert(cars[40:42,])
+repo$heads()
+
+# go back
+repo$checkout(v2)
+repo$get()
 }
 

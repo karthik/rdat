@@ -7,10 +7,33 @@
 #' @param dat name of the 'dat' executable  (possibly with path)
 #' @param verbose gives some more output
 #' @importFrom jsonlite stream_in stream_out
-#' @examples repo <- dat(tempdir())
-#' repo$import(mtcars)
-#' repo$export()
-dat <- function(path = tempdir(), dat = "dat-beta", verbose = TRUE){
+#' @examples # init a temporary repo
+#' repo <- dat(tempdir())
+#'
+#' # insert some data
+#' repo$insert(cars[1:20,])
+#' v1 <- repo$heads()
+#'
+#' # insert some more data
+#' repo$insert(cars[21:25,])
+#' v2 <- repo$heads()
+#'
+#' # get the data
+#' data1 <- repo$get(v1)
+#' data2 <- repo$get(v2)
+#' diff <- repo$diff(v1, v2)
+#' diff$key
+#'
+#' # create fork
+#' repo$checkout(v1)
+#' repo$insert(cars[40:42,])
+#' repo$heads()
+#'
+#' # go back
+#' repo$checkout(v2)
+#' repo$get()
+dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
+
   # Holds dir with the dat repository
   dat_path <- normalizePath(path)
   repo <- file.path(dat_path, ".dat")
@@ -42,6 +65,7 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = TRUE){
 
   # Stream data from dat in R
   dat_stream_in <- function(args){
+    args <- paste(args, collapse = " ")
     in_datdir({
       con <- pipe(paste(dat, args), open = "r")
       on.exit({
@@ -54,6 +78,7 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = TRUE){
 
   # Stream something into dat
   dat_stream_out <- function(data, args){
+    args <- paste(args, collapse = " ")
     in_datdir({
       con <- pipe(paste(dat, args), open = "w")
       on.exit({
@@ -74,27 +99,33 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = TRUE){
   # Control object
   self <- local({
 
-    import <- function(data){
+    insert <- function(data){
       stopifnot(is.data.frame(data))
-      invisible(dat_stream_out(data, "add -"))
+      invisible(dat_stream_out(data, "import -"))
     }
 
-    export <- function(key = TRUE){
-      out <- dat_stream_in("cat")
+    get <- function(version = NULL){
+      out <- if(is.null(version)){
+        dat_stream_in("export")
+      } else {
+        dat_stream_in(c("export -c", version))
+      }
       data <- out$value
-      if(key)
-        data$key <- out$key
+      data$key <- out$key
       as.data.frame(data)
     }
+
+    checkout <- function(key)
+      dat_command(c("checkout", key))
 
     heads <- function()
       dat_command("heads")
 
-    diff <- function(head1, head2)
-      dat_stream_in(c("diff", head1, head2))
+    diff <- function(version1, version2)
+      dat_stream_in(c("diff", version1, version2))
 
     path <- function()
-      dat_path
+      return(dat_path)
 
     environment();
   })
