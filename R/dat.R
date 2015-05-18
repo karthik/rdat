@@ -115,6 +115,9 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
       as.data.frame(data)
     }
 
+    status <- function()
+      invisible(dat_command("status"))
+
     checkout <- function(key)
       dat_command(c("checkout", key))
 
