@@ -11,12 +11,12 @@
 #' repo <- dat(tempdir())
 #'
 #' # insert some data
-#' repo$insert(cars[1:20,])
-#' v1 <- repo$heads()
+#' v1 <- repo$insert(cars[1:20,])
+#' v1
+#' [1] "c9f07a74be82680f67e3bb83ec5235e522609aebf19f22dadd494f605b65a4a6"
 #'
 #' # insert some more data
-#' repo$insert(cars[21:25,])
-#' v2 <- repo$heads()
+#' v2 <- repo$insert(cars[21:25,])
 #'
 #' # get the data
 #' data1 <- repo$get(v1)
@@ -102,6 +102,7 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
     insert <- function(data){
       stopifnot(is.data.frame(data))
       invisible(dat_stream_out(data, "import -"))
+      heads()
     }
 
     get <- function(version = NULL){
@@ -110,9 +111,7 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
       } else {
         dat_stream_in(c("export -c", version))
       }
-      data <- out$value
-      data$key <- out$key
-      as.data.frame(data)
+      as.data.frame(out)
     }
 
     status <- function()
