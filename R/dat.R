@@ -110,9 +110,7 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
       } else {
         dat_stream_in(c("export -c", version))
       }
-      data <- out$value
-      data$key <- out$key
-      as.data.frame(data)
+      as.data.frame(out)
     }
 
     status <- function()
