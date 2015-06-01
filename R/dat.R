@@ -105,6 +105,15 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
       heads()
     }
 
+    insert_binary <- function(data, name){
+      invisible(dat_stream_out(data, c("write", name, "-")))
+      heads()
+    }
+
+    get_binary <- function(name){
+      dat_stream_in(c("cat", name))
+    }
+
     get <- function(version = NULL){
       out <- if(is.null(version)){
         dat_stream_in("export")
