@@ -110,8 +110,12 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
       heads()
     }
 
-    get_binary <- function(name){
-      dat_stream_in(c("cat", name))
+    get_binary <- function(name, version = NULL){
+      if (is.null(version)) {
+        dat_stream_in(c("cat", name))
+      } else {
+        dat_stream_in(c("cat -c", version))
+      }
     }
 
     get <- function(version = NULL){
