@@ -39,7 +39,7 @@
 #' # store binary data
 #' repo$write(serialize(mtcars, NULL), "mtcars")
 #' unserialize(repo$read("mtcars"))
-dat <- function(path = tempdir(), dat = "dat", verbose = FALSE){
+dat <- function(path = tempdir(), dataset = "test", dat = "dat", verbose = FALSE){
 
   # Holds dir with the dat repository
   dat_path <- normalizePath(path)
@@ -132,29 +132,29 @@ dat <- function(path = tempdir(), dat = "dat", verbose = FALSE){
   # Control object
   self <- local({
 
-    insert <- function(data, name = "test"){
+    insert <- function(data){
       stopifnot(is.data.frame(data))
-      invisible(dat_stream_out(data, c("-d", name, "import -")))
+      invisible(dat_stream_out(data, c("-d", dataset, "import -")))
     }
 
-    write <- function(bin, name, dataset = "default"){
+    write <- function(bin, filename){
       stopifnot(is.raw(bin))
-      invisible(dat_write_bin(bin, c("write", name, "-d", dataset, "-")))
+      invisible(dat_write_bin(bin, c("write", filename, "-d", dataset, "-")))
     }
 
-    read <- function(name, version = NULL, dataset = "default"){
+    read <- function(filename, version = NULL){
       if (is.null(version)) {
-        dat_read_bin(c("cat -d", dataset, name))
+        dat_read_bin(c("read -d", dataset, filename))
       } else {
-        dat_read_bin(c("cat -d", dataset, "-c", version, name))
+        dat_read_bin(c("read -d", dataset, "-c", version, filename))
       }
     }
 
-    get <- function(version = NULL, name = "test"){
+    get <- function(version = NULL){
       out <- if(is.null(version)){
-        dat_stream_in(c("export -d", name))
+        dat_stream_in(c("export -d", dataset))
       } else {
-        dat_stream_in(c("export -d", name, "-c", version))
+        dat_stream_in(c("export -d", dataset, "-c", version))
       }
       as.data.frame(out)
     }

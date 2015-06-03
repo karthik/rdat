@@ -4,7 +4,7 @@
 \alias{dat}
 \title{Dat repository}
 \usage{
-dat(path = tempdir(), dat = "dat", verbose = FALSE)
+dat(path = tempdir(), dataset = "test", dat = "dat", verbose = FALSE)
 }
 \arguments{
 \item{path}{directory of the dat repository}
