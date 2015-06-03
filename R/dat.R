@@ -3,12 +3,13 @@
 #' Create and modify a dat repository.
 #'
 #' @export
+#' @param dataset name of the dat 'dataset' (namespace)
 #' @param path directory of the dat repository
 #' @param dat name of the 'dat' executable  (possibly with path)
 #' @param verbose gives some more output
 #' @importFrom jsonlite stream_in stream_out
 #' @examples # init a temporary repo
-#' repo <- dat(tempdir())
+#' repo <- dat("cars")
 #'
 #' # insert some data
 #' repo$insert(cars[1:20,])
@@ -36,10 +37,10 @@
 #' repo$checkout(v2)
 #' repo$get()
 #'
-#' # store binary data
-#' repo$write(serialize(mtcars, NULL), "mtcars")
-#' unserialize(repo$read("mtcars"))
-dat <- function(path = tempdir(), dataset = "test", dat = "dat", verbose = FALSE){
+#' # store binary attachements
+#' repo$write(serialize(iris, NULL), "iris")
+#' unserialize(repo$read("iris"))
+dat <- function(dataset = "test", path = tempdir(), dat = "dat", verbose = FALSE){
 
   # Holds dir with the dat repository
   dat_path <- normalizePath(path)

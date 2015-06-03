@@ -4,9 +4,11 @@
 \alias{dat}
 \title{Dat repository}
 \usage{
-dat(path = tempdir(), dataset = "test", dat = "dat", verbose = FALSE)
+dat(dataset = "test", path = tempdir(), dat = "dat", verbose = FALSE)
 }
 \arguments{
+\item{dataset}{name of the dat 'dataset' (namespace)}
+
 \item{path}{directory of the dat repository}
 
 \item{dat}{name of the 'dat' executable  (possibly with path)}
@@ -18,7 +20,7 @@ Create and modify a dat repository.
 }
 \examples{
 # init a temporary repo
-repo <- dat(tempdir())
+repo <- dat("cars")
 
 # insert some data
 repo$insert(cars[1:20,])
@@ -46,8 +48,8 @@ v3 <- repo$status()$version
 repo$checkout(v2)
 repo$get()
 
-# store binary data
-repo$write(serialize(mtcars, NULL), "mtcars")
-unserialize(repo$read("mtcars"))
+# store binary attachements
+repo$write(serialize(iris, NULL), "iris")
+unserialize(repo$read("iris"))
 }
 
