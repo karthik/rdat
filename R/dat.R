@@ -11,12 +11,14 @@
 #' repo <- dat(tempdir())
 #'
 #' # insert some data
-#' v1 <- repo$insert(cars[1:20,])
+#' repo$insert(cars[1:20,])
+#' v1 <- repo$status()$version
 #' v1
-#' [1] "c9f07a74be82680f67e3bb83ec5235e522609aebf19f22dadd494f605b65a4a6"
 #'
 #' # insert some more data
-#' v2 <- repo$insert(cars[21:25,])
+#' repo$insert(cars[21:25,])
+#' v2 <- repo$status()$version
+#' v2
 #'
 #' # get the data
 #' data1 <- repo$get(v1)
@@ -27,12 +29,17 @@
 #' # create fork
 #' repo$checkout(v1)
 #' repo$insert(cars[40:42,])
-#' repo$heads()
+#' repo$forks()
+#' v3 <- repo$status()$version
 #'
 #' # go back
 #' repo$checkout(v2)
 #' repo$get()
-dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
+#'
+#' # store binary data
+#' repo$write(serialize(mtcars, NULL), "mtcars")
+#' unserialize(repo$read("mtcars"))
+dat <- function(path = tempdir(), dat = "dat", verbose = FALSE){
 
   # Holds dir with the dat repository
   dat_path <- normalizePath(path)
@@ -63,7 +70,7 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
     })
   }
 
-  # Stream data from dat in R
+  # Stream ndjson data from dat in R
   dat_stream_in <- function(args){
     args <- paste(args, collapse = " ")
     in_datdir({
@@ -76,7 +83,7 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
     })
   }
 
-  # Stream something into dat
+  # Stream ndjson into dat
   dat_stream_out <- function(data, args){
     args <- paste(args, collapse = " ")
     in_datdir({
@@ -86,6 +93,32 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
         if(length(res) && res) stop("dat error ", res)
       })
       invisible(jsonlite::stream_out(data, con, verbose = verbose))
+    })
+  }
+
+  # Stream binary data from dat in R
+  dat_read_bin <- function(args){
+    args <- paste(args, collapse = " ")
+    in_datdir({
+      con <- pipe(paste(dat, args), open = "rb")
+      on.exit({
+        res <- close(con)
+        if(length(res) && res) stop("dat error ", res)
+      })
+      readBin(con, raw(), n = 1e8)
+    })
+  }
+
+  # Write binary data to dat
+  dat_write_bin <- function(data, args){
+    args <- paste(args, collapse = " ")
+    in_datdir({
+      con <- pipe(paste(dat, args), open = "wb")
+      on.exit({
+        res <- close(con)
+        if(length(res) && res) stop("dat error ", res)
+      })
+      invisible(writeBin(data, con))
     })
   }
 
@@ -99,45 +132,52 @@ dat <- function(path = tempdir(), dat = "dat-beta", verbose = FALSE){
   # Control object
   self <- local({
 
-    insert <- function(data){
+    insert <- function(data, name = "test"){
       stopifnot(is.data.frame(data))
-      invisible(dat_stream_out(data, "import -"))
-      heads()
+      invisible(dat_stream_out(data, c("-d", name, "import -")))
     }
 
-    insert_binary <- function(data, name){
-      invisible(dat_stream_out(data, c("write", name, "-")))
-      heads()
+    write <- function(bin, name, dataset = "default"){
+      stopifnot(is.raw(bin))
+      invisible(dat_write_bin(bin, c("write", name, "-d", dataset, "-")))
     }
 
-    get_binary <- function(name, version = NULL){
+    read <- function(name, version = NULL, dataset = "default"){
       if (is.null(version)) {
-        dat_stream_in(c("cat", name))
+        dat_read_bin(c("cat -d", dataset, name))
       } else {
-        dat_stream_in(c("cat -c", version))
+        dat_read_bin(c("cat -d", dataset, "-c", version, name))
       }
     }
 
-    get <- function(version = NULL){
+    get <- function(version = NULL, name = "test"){
       out <- if(is.null(version)){
-        dat_stream_in("export")
+        dat_stream_in(c("export -d", name))
       } else {
-        dat_stream_in(c("export -c", version))
+        dat_stream_in(c("export -d", name, "-c", version))
       }
       as.data.frame(out)
     }
 
     status <- function()
-      invisible(dat_command("status"))
+      jsonlite::fromJSON(dat_command("status --json"))
 
     checkout <- function(key)
-      dat_command(c("checkout", key))
+      invisible(dat_command(c("checkout", key)))
 
-    heads <- function()
-      dat_command("heads")
+    forks <- function()
+      dat_command("forks")
 
-    diff <- function(version1, version2)
-      dat_stream_in(c("diff", version1, version2))
+    diff <- function(version1, version2 = NULL){
+      if(is.null(version2)){
+        dat_stream_in(c("diff", version1))
+      } else {
+        dat_stream_in(c("diff", version1, version2))
+      }
+    }
+
+    log <- function()
+      dat_stream_in("log")
 
     path <- function()
       return(dat_path)

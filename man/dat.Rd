@@ -4,7 +4,7 @@
 \alias{dat}
 \title{Dat repository}
 \usage{
-dat(path = tempdir(), dat = "dat-beta", verbose = FALSE)
+dat(path = tempdir(), dat = "dat", verbose = FALSE)
 }
 \arguments{
 \item{path}{directory of the dat repository}
@@ -22,11 +22,13 @@ repo <- dat(tempdir())
 
 # insert some data
 repo$insert(cars[1:20,])
-v1 <- repo$heads()
+v1 <- repo$status()$version
+v1
 
 # insert some more data
 repo$insert(cars[21:25,])
-v2 <- repo$heads()
+v2 <- repo$status()$version
+v2
 
 # get the data
 data1 <- repo$get(v1)
@@ -37,10 +39,15 @@ diff$key
 # create fork
 repo$checkout(v1)
 repo$insert(cars[40:42,])
-repo$heads()
+repo$forks()
+v3 <- repo$status()$version
 
 # go back
 repo$checkout(v2)
 repo$get()
+
+# store binary data
+repo$write(serialize(mtcars, NULL), "mtcars")
+unserialize(repo$read("mtcars"))
 }
 
