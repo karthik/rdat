@@ -171,9 +171,9 @@ dat <- function(dataset = "test", path = tempdir(), dat = "dat", verbose = FALSE
 
     diff <- function(version1, version2 = NULL){
       if(is.null(version2)){
-        dat_stream_in(c("diff", version1))
+        dat_stream_in(c("diff --json", version1))
       } else {
-        dat_stream_in(c("diff", version1, version2))
+        dat_stream_in(c("diff --json", version1, version2))
       }
     }
 
