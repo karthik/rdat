@@ -4,6 +4,13 @@ warnings_are_errors: true
 
 apt_packages:
   - npm
+  - git
+
+before_install:
+  - git clone https://github.com/maxogden/dat
+  - cd dat
+  - npm install .
+  - sudo npm link
 
 r_github_packages:
  - jeroenooms/curl
@@ -13,5 +20,3 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-
