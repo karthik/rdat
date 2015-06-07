@@ -11,7 +11,7 @@ install:
   - git clone https://github.com/maxogden/dat
   - cd dat
   - npm install .
-  - sudo npm link
+  - npm link
 
 r_github_packages:
  - jeroenooms/curl
