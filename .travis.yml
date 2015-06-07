@@ -12,6 +12,7 @@ before_install:
   - cd dat
   - npm install .
   - npm link
+  - cd ..
 
 r_github_packages:
  - jeroenooms/curl
