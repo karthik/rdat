@@ -5,7 +5,13 @@ warnings_are_errors: true
 apt_packages:
   - npm
 
+r_github_packages:
+ - jeroenooms/curl
+ - jeroenooms/jsonlite
+
 notifications:
   email:
     on_success: change
     on_failure: change
+
+
