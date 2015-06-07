@@ -8,7 +8,7 @@ apt_packages:
   - git
 
 before_install:
-  - ( cd .. ; clone https://github.com/maxogden/dat; cd dat; npm install; npm link )
+  - ( cd .. ; git clone https://github.com/maxogden/dat; cd dat; npm install; npm link )
 
 r_github_packages:
  - jeroenooms/curl
