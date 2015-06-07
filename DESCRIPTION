@@ -8,5 +8,5 @@ Authors@R: c(person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role 
 Description: Programmatic interface to Dat (https://github.com/maxogden/dat/),
     a tool that makes data syncable and allows for automatic sync and updates
     of data sets.
-License: MIT + LICENSE
+License: MIT + file LICENSE
 Imports: jsonlite
