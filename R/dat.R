@@ -40,7 +40,7 @@
 #' # store binary attachements
 #' repo$write(serialize(iris, NULL), "iris")
 #' unserialize(repo$read("iris"))
-dat <- function(dataset = "test", path = tempdir(), dat = "dat", verbose = FALSE){
+dat <- function(dataset = "test", remote = NULL, path = tempdir(), dat = "dat", verbose = FALSE){
 
   # Holds dir with the dat repository
   dat_path <- normalizePath(path)
@@ -124,7 +124,11 @@ dat <- function(dataset = "test", path = tempdir(), dat = "dat", verbose = FALSE
   }
 
   # Initiate the dat repository
-  dat_command("init")
+  if(is.null(remote)){
+    dat_command("init")
+  } else {
+    dat_command(c("clone", remote, "."))
+  }
 
   # Show dat version
   if(verbose)
@@ -182,6 +186,22 @@ dat <- function(dataset = "test", path = tempdir(), dat = "dat", verbose = FALSE
 
     path <- function()
       return(dat_path)
+
+    pull <- function(){
+      if(is.null(remote)){
+        stop("This repository was not created from a remote.")
+      } else {
+        dat_command(c("pull", remote))
+      }
+    }
+
+    push <- function(){
+      if(is.null(remote)){
+        stop("This repository was not created from a remote.")
+      } else {
+        dat_command(c("push", remote))
+      }
+    }
 
     environment();
   })
