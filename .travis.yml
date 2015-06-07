@@ -7,7 +7,7 @@ apt_packages:
   - npm
   - git
 
-before_install:
+install:
   - git clone https://github.com/maxogden/dat
   - cd dat
   - npm install .
