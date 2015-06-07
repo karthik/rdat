@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/ropensci/rdat.svg)](https://travis-ci.org/ropensci/rdat)
 
 # rdat
-![dat](http://i.imgur.com/1iD2dEx.png)
+[![dat](http://i.imgur.com/1iD2dEx.png)](http://dat-data.com/)
 
 _Software is pre-alpha. Not yet ready for testing or use with real world data_
 
