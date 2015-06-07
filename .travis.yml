@@ -1,0 +1,11 @@
+language: r
+
+warnings_are_errors: true
+
+apt_packages:
+  - npm
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
