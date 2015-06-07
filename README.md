@@ -6,7 +6,7 @@
 
 _Software is pre-alpha. Not yet ready for testing or use with real world data_
 
-rDat provides a programmatic interface to the [Dat project](https://github.com/maxogden/) (v `5.0.5`). The package makes data syncable and allows for automatic sync and updates of data sets
+The `rdat` package provides an R wrapper to the [Dat project](https://github.com/maxogden/). Dat (`git` for data) is a framework for data versioning, replication and synchronisation, see [dat-data.com](http://dat-data.com/).
 
 ## Installation instructions
 
@@ -36,13 +36,13 @@ install_github("ropensci/rdat")
 This api is experimental and hasn't been finalized or implemented. Stay tuned for updates
 
 #### init
-```
+```r
 repo <- dat("cars", path = getwd())
 ```
 Inits a dat in the current working directory
 
 #### insert
-```
+```r
 # insert some data
 repo$insert(cars[1:20,])
 v1 <- repo$status()$version
@@ -50,7 +50,7 @@ v1
 ```
 Inserts data from a data frame and gets the dat at a particular hash.
 
-```
+```r
 # insert more data
 repo$insert(cars[21:25,])
 v2 <- repo$status()$version
@@ -60,21 +60,21 @@ v2
 Inserts more data
 
 #### get
-```
+```r
 data1 <- repo$get(v1)
 data2 <- repo$get(v2)
 ```
 Get particular versions of the dataset.
 
 #### diff
-```
+```r
 diff <- repo$diff(v1, v2)
 diff$key
 ```
 list changes in between versions
 
 #### branching
-```
+```r
 # create fork
 repo$checkout(v1)
 repo$insert(cars[40:42,])
@@ -85,7 +85,7 @@ v3 <- repo$status()$version
 Fork a dataset from a particular version into a new breanch.
 
 #### checkout
-```
+```r
 # go back
 repo$checkout(v2)
 repo$get()
@@ -93,7 +93,7 @@ repo$get()
 Checkout the data at a particular version.
 
 #### files
-```
+```r
 # store binary attachements
 repo$write(serialize(iris, NULL), "iris")
 unserialize(repo$read("iris"))
