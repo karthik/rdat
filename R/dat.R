@@ -29,7 +29,7 @@
 #'
 #' # create fork
 #' repo$checkout(v1)
-#' repo$insert(cars[40:42,])
+#' repo$insert(cars[26:30,])
 #' repo$forks()
 #' v3 <- repo$status()$version
 #'
@@ -40,6 +40,23 @@
 #' # store binary attachements
 #' repo$write(serialize(iris, NULL), "iris")
 #' unserialize(repo$read("iris"))
+#'
+#' # Create another repo
+#' dir.create(newdir <- tempfile())
+#' repo2 <- dat("cars", path = newdir, remote = repo$path())
+#' repo2$forks()
+#' repo2$get()
+#' repo2$insert(cars[31:40,])
+#'
+#' # Create a third repo
+#' dir.create(newdir <- tempfile())
+#' repo3 <- dat("cars", path = newdir, remote = repo$path())
+#' nrow(repo3$get())
+#'
+#' # Sync 2 with 3 via remote (1)
+#' repo2$push()
+#' repo3$pull()
+#' nrow(repo3$get())
 dat <- function(dataset = "test", remote = NULL, path = tempdir(), dat = "dat", verbose = FALSE){
 
   # Holds dir with the dat repository
