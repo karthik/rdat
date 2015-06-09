@@ -63,11 +63,12 @@ repo2$insert(cars[31:40,])
 # Create a third repo
 dir.create(newdir <- tempfile())
 repo3 <- dat("cars", path = newdir, remote = repo$path())
-nrow(repo3$get())
 
 # Sync 2 with 3 via remote (1)
 repo2$push()
 repo3$pull()
-nrow(repo3$get())
+mydata2 <- repo2$get()
+mydata3 <- repo3$get()
+all.equal(mydata2, mydata3)
 }
 

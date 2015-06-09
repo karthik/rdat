@@ -51,12 +51,13 @@
 #' # Create a third repo
 #' dir.create(newdir <- tempfile())
 #' repo3 <- dat("cars", path = newdir, remote = repo$path())
-#' nrow(repo3$get())
 #'
 #' # Sync 2 with 3 via remote (1)
 #' repo2$push()
 #' repo3$pull()
-#' nrow(repo3$get())
+#' mydata2 <- repo2$get()
+#' mydata3 <- repo3$get()
+#' all.equal(mydata2, mydata3)
 dat <- function(dataset = "test", remote = NULL, path = tempdir(), dat = "dat", verbose = FALSE){
 
   # Holds dir with the dat repository
@@ -208,7 +209,7 @@ dat <- function(dataset = "test", remote = NULL, path = tempdir(), dat = "dat", 
       if(is.null(remote)){
         stop("This repository was not created from a remote.")
       } else {
-        dat_command(c("pull", remote))
+        jsonlite::fromJSON(dat_command(c("pull --json", remote)))
       }
     }
 
@@ -216,7 +217,7 @@ dat <- function(dataset = "test", remote = NULL, path = tempdir(), dat = "dat", 
       if(is.null(remote)){
         stop("This repository was not created from a remote.")
       } else {
-        dat_command(c("push", remote))
+        jsonlite::fromJSON(dat_command(c("push --json", remote)))
       }
     }
 
