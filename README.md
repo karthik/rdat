@@ -4,7 +4,7 @@
 # rdat
 [![dat](http://i.imgur.com/1iD2dEx.png)](http://dat-data.com/)
 
-_Software is pre-alpha. Not yet ready for testing or use with real world data_
+_Software is in alpha stage. Not yet ready for use with real world data_
 
 The `rdat` package provides an R wrapper to the [Dat project](https://github.com/maxogden/). Dat (`git` for data) is a framework for data versioning, replication and synchronisation, see [dat-data.com](http://dat-data.com/).
 
@@ -19,8 +19,6 @@ npm install .
 sudo npm link
 ```
 
-[More detailed instructions](https://github.com/maxogden/dat#install)
-
 Then install the R package:
 
 ```r
@@ -28,7 +26,7 @@ library(devtools)
 install_github("ropensci/rdat")
 ```
 
-To quickly run through the examples
+Run through the examples to verify that everything works:
 
 ```r
 library(rdat)
