@@ -47,19 +47,21 @@
 #' repo2 <- dat("cars", path = newdir, remote = repo$path())
 #' repo2$forks()
 #' repo2$get()
-#' repo2$insert(cars[31:40,])
 #'
 #' # Create a third repo
 #' dir.create(newdir <- tempfile())
 #' repo3 <- dat("cars", path = newdir, remote = repo$path())
 #'
 #' # Sync 2 with 3 via remote (1)
+#' repo2$insert(cars[31:40,])
 #' repo2$push()
 #' repo3$pull()
+#'
+#' # Verify that repositories are in sync
 #' mydata2 <- repo2$get()
 #' mydata3 <- repo3$get()
-#' all.equal(mydata2, mydata3)
-dat <- function(dataset = "test", remote = NULL, path = tempdir(), dat = "dat", verbose = FALSE){
+#' stopifnot(all.equal(mydata2, mydata3))
+dat <- function(dataset = "test", path = tempdir(), remote = NULL, dat = "dat", verbose = FALSE){
 
   # Holds dir with the dat repository
   dat_path <- normalizePath(path)

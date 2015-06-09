@@ -28,6 +28,13 @@ library(devtools)
 install_github("ropensci/rdat")
 ```
 
+To quickly run through the examples
+
+```r
+library(rdat)
+example(dat)
+```
+
 [![ropensci footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
 
 
@@ -98,4 +105,38 @@ Checkout the data at a particular version.
 repo$write(serialize(iris, NULL), "iris")
 unserialize(repo$read("iris"))
 ```
+
 Save binary data (files) as attachements to the dataset.
+
+#### cloning
+```r
+# Create another repo
+dir.create(newdir <- tempfile())
+repo2 <- dat("cars", path = newdir, remote = repo$path())
+repo2$forks()
+repo2$get()
+```
+
+Specifying a path or url as `remote` will clone an existing repo. In this case we clone the previous repo into a new location.
+
+#### push and pull
+```r
+# Create a third repo
+dir.create(newdir <- tempfile())
+repo3 <- dat("cars", path = newdir, remote = repo$path())
+```
+This makes yet another clone of our original repository
+
+```r
+#' # Sync 2 with 3 via remote (1)
+#' repo2$insert(cars[31:40,])
+#' repo2$push()
+#' repo3$pull()
+#'
+#' # Verify that repositories are in sync
+#' mydata2 <- repo2$get()
+#' mydata3 <- repo3$get()
+#' all.equal(mydata2, mydata3)
+```
+Add data in repo2 and then `push` it back to repo1. Then `pull` data back into repo3. 
+

@@ -4,15 +4,15 @@
 \alias{dat}
 \title{Dat repository}
 \usage{
-dat(dataset = "test", remote = NULL, path = tempdir(), dat = "dat",
+dat(dataset = "test", path = tempdir(), remote = NULL, dat = "dat",
   verbose = FALSE)
 }
 \arguments{
 \item{dataset}{name of the dat 'dataset' (namespace)}
 
-\item{remote}{path or url to clone form. Default will init a new repo.}
-
 \item{path}{directory of the dat repository}
+
+\item{remote}{path or url to clone form. Default will init a new repo.}
 
 \item{dat}{name of the 'dat' executable  (possibly with path)}
 
@@ -60,17 +60,19 @@ dir.create(newdir <- tempfile())
 repo2 <- dat("cars", path = newdir, remote = repo$path())
 repo2$forks()
 repo2$get()
-repo2$insert(cars[31:40,])
 
 # Create a third repo
 dir.create(newdir <- tempfile())
 repo3 <- dat("cars", path = newdir, remote = repo$path())
 
 # Sync 2 with 3 via remote (1)
+repo2$insert(cars[31:40,])
 repo2$push()
 repo3$pull()
+
+# Verify that repositories are in sync
 mydata2 <- repo2$get()
 mydata3 <- repo3$get()
-all.equal(mydata2, mydata3)
+stopifnot(all.equal(mydata2, mydata3))
 }
 
