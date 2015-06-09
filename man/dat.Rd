@@ -10,6 +10,8 @@ dat(dataset = "test", remote = NULL, path = tempdir(), dat = "dat",
 \arguments{
 \item{dataset}{name of the dat 'dataset' (namespace)}
 
+\item{remote}{path or url to clone form. Default will init a new repo.}
+
 \item{path}{directory of the dat repository}
 
 \item{dat}{name of the 'dat' executable  (possibly with path)}

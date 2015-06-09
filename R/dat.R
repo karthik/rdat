@@ -4,6 +4,7 @@
 #'
 #' @export
 #' @param dataset name of the dat 'dataset' (namespace)
+#' @param remote path or url to clone form. Default will init a new repo.
 #' @param path directory of the dat repository
 #' @param dat name of the 'dat' executable  (possibly with path)
 #' @param verbose gives some more output
