@@ -77,7 +77,7 @@ data1 <- repo$get(v1)
 data2 <- repo$get(v2)
 ```
 
-#### diff
+### diff
 
 List changes in between versions
 
@@ -99,7 +99,7 @@ v3 <- repo$status()$version
 ```
 
 
-#### checkout
+### checkout
 
 Checkout the data at a particular version. 
 
@@ -109,7 +109,7 @@ repo$checkout(v2)
 repo$get()
 ```
 
-#### files
+### binary data
 
 Save binary data (files) as attachements to the dataset.
 
