@@ -40,20 +40,25 @@ example(dat)
 
 This api is experimental and hasn't been finalized or implemented. Stay tuned for updates
 
-#### init
+### init
+
+Inits a dat in the current working directory:
+
 ```r
 repo <- dat("cars", path = getwd())
 ```
-Inits a dat in the current working directory
 
-#### insert
+### insert
+
+Inserts data from a data frame and gets the dat version key
+
 ```r
 # insert some data
 repo$insert(cars[1:20,])
 v1 <- repo$status()$version
 v1
 ```
-Inserts data from a data frame and gets the dat at a particular hash.
+Inserts more data, get a new version key
 
 ```r
 # insert more data
@@ -62,23 +67,29 @@ v2 <- repo$status()$version
 v2
 
 ```
-Inserts more data
 
-#### get
+###  get
+
+Retreive particular versions of the dataset from the key.
+
 ```r
 data1 <- repo$get(v1)
 data2 <- repo$get(v2)
 ```
-Get particular versions of the dataset.
 
 #### diff
+
+List changes in between versions
+
 ```r
 diff <- repo$diff(v1, v2)
 diff$key
 ```
-list changes in between versions
 
-#### branching
+### branching
+
+Fork a dataset from a particular version into a new branch.
+
 ```r
 # create fork
 repo$checkout(v1)
@@ -87,26 +98,30 @@ repo$forks()
 v3 <- repo$status()$version
 ```
 
-Fork a dataset from a particular version into a new breanch.
 
 #### checkout
+
+Checkout the data at a particular version. 
+
 ```r
-# go back
+# go back to v2
 repo$checkout(v2)
 repo$get()
 ```
-Checkout the data at a particular version.
 
 #### files
+
+Save binary data (files) as attachements to the dataset.
+
 ```r
 # store binary attachements
 repo$write(serialize(iris, NULL), "iris")
 unserialize(repo$read("iris"))
 ```
 
-Save binary data (files) as attachements to the dataset.
 
-#### cloning
+### clone
+
 ```r
 # Create another repo
 dir.create(newdir <- tempfile())
@@ -115,26 +130,35 @@ repo2$forks()
 repo2$get()
 ```
 
-Specifying a path or url as `remote` will clone an existing repo. In this case we clone the previous repo into a new location.
+Specifying a `remote` (path or url) to clone an existing repo. In this case we clone the previous repo into a new location.
 
-#### push and pull
+### push and pull
+
+Lets make yet another clone of our original repository
+
 ```r
 # Create a third repo
 dir.create(newdir <- tempfile())
 repo3 <- dat("cars", path = newdir, remote = repo$path())
 ```
-This makes yet another clone of our original repository
+
+Add data in repo2 and then `push` it back to repo1.
+
 
 ```r
-#' # Sync 2 with 3 via remote (1)
-#' repo2$insert(cars[31:40,])
-#' repo2$push()
-#' repo3$pull()
-#'
-#' # Verify that repositories are in sync
-#' mydata2 <- repo2$get()
-#' mydata3 <- repo3$get()
-#' all.equal(mydata2, mydata3)
+# Add some data and push to origin
+repo2$insert(cars[31:40,])
+repo2$push()
 ```
-Add data in repo2 and then `push` it back to repo1. Then `pull` data back into repo3. 
 
+Then `pull` data back into repo3. 
+
+```r
+# sync data with origin 
+repo3$pull()
+
+# Verify that repositories are in sync
+mydata2 <- repo2$get()
+mydata3 <- repo3$get()
+all.equal(mydata2, mydata3)
+```
