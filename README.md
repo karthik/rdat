@@ -33,9 +33,6 @@ library(rdat)
 example(dat)
 ```
 
-[![ropensci footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
-
-
 ## API
 
 This api is experimental and hasn't been finalized or implemented. Stay tuned for updates
@@ -162,3 +159,8 @@ mydata2 <- repo2$get()
 mydata3 <- repo3$get()
 all.equal(mydata2, mydata3)
 ```
+
+
+[![ropensci footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+
+
