@@ -7,8 +7,8 @@ Authors@R: c(
     person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut", "cre")),
     person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = "aut"),
     person("Karissa", "McKelvey", role = "aut"))
-Description: Programmatic interface to Dat (https://github.com/maxogden/dat/),
-    a tool that makes data syncable and allows for automatic sync and updates
-    of data sets.
+URL: https://github.com/ropensci/rdat/ https://github.com/maxogden/dat/
+Description: Programmatic interface to the Dat system for data versioning
+    and replication.
 License: MIT + file LICENSE
 Imports: jsonlite
