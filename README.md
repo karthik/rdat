@@ -42,7 +42,7 @@ This api is experimental and hasn't been finalized or implemented. Stay tuned fo
 
 ### init
 
-Inits a dat in the current working directory:
+When no `remote` is specified, `dat()` will init a new repository:
 
 ```r
 repo <- dat("cars", path = getwd())
