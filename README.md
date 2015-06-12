@@ -8,16 +8,35 @@ _Software is in alpha stage. Not yet ready for use with real world data_
 
 The `rdat` package provides an R wrapper to the [Dat project](https://github.com/maxogden/). Dat (`git` for data) is a framework for data versioning, replication and synchronisation, see [dat-data.com](http://dat-data.com/).
 
+
+
 ## Installation instructions
 
-If you have not already installed `dat`, follow instructions here:
+__Prerequisites:__ Instructions below require [R](http://cran.rstudio.com/), [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [nodejs (npm)](https://nodejs.org/download/).
+
+
+### Installing `dat`
+
+If you have not already installed `dat` grab it from github:
 
 ```
+cd ~
 git clone https://github.com/maxogden/dat
 cd dat
 npm install .
 sudo npm link
 ```
+
+To update an existing copy of `dat`
+
+```
+cd ~/dat
+git pull
+rm -Rf node_modules
+npm install .
+```
+
+### Installing `rdat`
 
 Then install the R package:
 
