@@ -20,9 +20,8 @@ __Prerequisites:__ Instructions below require [R](http://cran.rstudio.com/), [gi
 If you have not already installed `dat` grab it from github:
 
 ```
-cd ~
-git clone https://github.com/maxogden/dat
-cd dat
+git clone https://github.com/maxogden/dat ~/dat
+cd ~/dat
 npm install .
 sudo npm link
 ```
