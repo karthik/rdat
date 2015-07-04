@@ -178,11 +178,13 @@ dat <- function(dataset = "test", path = tempdir(), remote = NULL, dat = "dat", 
 
     get <- function(version = NULL){
       out <- if(is.null(version)){
-        dat_stream_in(c("export -d", dataset))
+        dat_stream_in(c("export --full -d", dataset))
       } else {
-        dat_stream_in(c("export -d", dataset, "-c", version))
+        dat_stream_in(c("export --full -d", dataset, "-c", version))
       }
-      as.data.frame(out)
+      frame <- out$value
+      frame$key <- out$key
+      as.data.frame(frame)
     }
 
     status <- function()
