@@ -15,7 +15,18 @@ The `rdat` package provides an R wrapper to the [Dat project](https://github.com
 __Prerequisites:__ Instructions below require [R](http://cran.rstudio.com/), [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [nodejs (npm)](https://nodejs.org/download/).
 
 
-### Installing `dat`
+### Installing `dat` stable
+
+Install the latest stable version from npm:
+
+```
+sudo npm install -g dat
+```
+
+See [instructions](https://www.npmjs.com/package/dat#installation) for more details.
+
+
+### Installing `dat` development version
 
 If you have not already installed `dat` grab it from github:
 
