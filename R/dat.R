@@ -65,7 +65,7 @@ dat <- function(dataset = "test", path = tempdir(), remote = NULL, dat = "dat", 
 
   # Holds dir with the dat repository
   dat_path <- normalizePath(path)
-  repo <- file.path(dat_path, ".dat")
+  repo <- file.path(dat_path, "data.dat")
 
   # Run a command in the dat dir
   in_datdir <- function(...){
@@ -146,7 +146,7 @@ dat <- function(dataset = "test", path = tempdir(), remote = NULL, dat = "dat", 
 
   # Initiate the dat repository
   if(is.null(remote)){
-    dat_command("init")
+    dat_command("init --no-prompt")
   } else {
     dat_command(c("clone", remote, "."))
   }
