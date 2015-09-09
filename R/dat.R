@@ -188,13 +188,13 @@ dat <- function(dataset = "test", path = tempdir(), remote = NULL, dat = "dat", 
     }
 
     status <- function()
-      jsonlite::fromJSON(dat_command("status --json"))
+      jsonlite::fromJSON(dat_command("status --json"))$status
 
     checkout <- function(key)
       invisible(dat_command(c("checkout", key)))
 
     forks <- function()
-      dat_command("forks")
+      jsonlite::fromJSON(dat_command("forks --json"))$forks
 
     diff <- function(version1, version2 = NULL){
       if(is.null(version2)){
