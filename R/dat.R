@@ -188,7 +188,7 @@ dat <- function(dataset = "test", path = tempdir(), remote = NULL, dat = "dat", 
     }
 
     status <- function()
-      jsonlite::fromJSON(dat_command("status --json"))$status
+      jsonlite::fromJSON(dat_command("status --json"))
 
     checkout <- function(key)
       invisible(dat_command(c("checkout", key)))
