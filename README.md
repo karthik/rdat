@@ -1,3 +1,6 @@
+## Attention
+
+This repository is unstable and currently experimental. Please come back later when we have a new version to correspond with dat 1.0. Keep up to date in #dat on freenode or [@dat_project on Twitter.](http://twitter.com/dat_project)
 
 [![Build Status](https://travis-ci.org/ropensci/rdat.svg)](https://travis-ci.org/ropensci/rdat)
 
@@ -127,7 +130,7 @@ v3 <- repo$status()$version
 
 ### checkout
 
-Checkout the data at a particular version. 
+Checkout the data at a particular version.
 
 ```r
 # go back to v2
@@ -177,10 +180,10 @@ repo2$insert(cars[31:40,])
 repo2$push()
 ```
 
-Then `pull` data back into repo3. 
+Then `pull` data back into repo3.
 
 ```r
-# sync data with origin 
+# sync data with origin
 repo3$pull()
 
 # Verify that repositories are in sync
