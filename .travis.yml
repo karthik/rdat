@@ -1,5 +1,7 @@
 language: r
 
+sudo: false
+
 warnings_are_errors: true
 
 apt_packages:
@@ -9,10 +11,6 @@ apt_packages:
 
 before_install:
   - ( cd .. ; git clone https://github.com/maxogden/dat; cd dat; npm install; npm link )
-
-r_github_packages:
- - jeroenooms/curl
- - jeroenooms/jsonlite
 
 notifications:
   email:
