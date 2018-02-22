@@ -1,6 +1,6 @@
 ## Attention
 
-This repository is unstable and currently experimental. Please come back later when we have a new version to correspond with dat 1.0. Keep up to date in #dat on freenode or [@dat_project on Twitter.](http://twitter.com/dat_project)
+This repository used to contain an R wrapper for an old version of `dat`. Meanwhile dat has changed a lot so this no longer works. 
 
 [![Build Status](https://travis-ci.org/ropensci/rdat.svg)](https://travis-ci.org/ropensci/rdat)
 
